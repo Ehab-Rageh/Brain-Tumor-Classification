@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Brain Tumor Classification")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09d483d492ca26df733b90b3714739799bcb9683")]
 [assembly: System.Reflection.AssemblyProductAttribute("Brain Tumor Classification")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Brain Tumor Classification")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

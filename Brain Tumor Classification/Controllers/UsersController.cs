@@ -14,20 +14,36 @@
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users = _context.Users.ToList();
+            var users = _context.Users.Select(s => new
+            {
+                Id = s.Id,
+                Name = s.Name,
+                Username = s.UserName,
+                Email = s.Email,
+                Gender = s.Gender,
+                Birthdate = s.BirthDate,
+            }).ToList();
 
             return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] int id)
+        public IActionResult GetById([FromRoute] string id)
         {
             var user = _context.Users.Find(id);
 
             if (user is null)
                 return NotFound($"There is no user with Id: {id}");
 
-            return Ok(user);
+            return Ok(new
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Username = user.UserName,
+                Email = user.Email,
+                Gender = user.Gender,
+                Birthdate = user.BirthDate,
+            });
         }
     }
 }
