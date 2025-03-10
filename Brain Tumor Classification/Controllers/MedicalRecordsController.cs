@@ -4,5 +4,6 @@
     [ApiController]
     public class MedicalRecordsController : ControllerBase
     {
+
     }
 }
