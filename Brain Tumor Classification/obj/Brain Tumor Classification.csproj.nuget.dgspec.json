@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\hossa\\OneDrive\\Desktop\\Brain-Tumor-Classification\\Brain-Tumor-Classification\\Brain Tumor Classification\\Brain Tumor Classification.csproj": {}
+    "C:\\Users\\ehabr\\source\\repos\\Brain Tumor Classification\\Brain Tumor Classification\\Brain Tumor Classification.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hossa\\OneDrive\\Desktop\\Brain-Tumor-Classification\\Brain-Tumor-Classification\\Brain Tumor Classification\\Brain Tumor Classification.csproj": {
+    "C:\\Users\\ehabr\\source\\repos\\Brain Tumor Classification\\Brain Tumor Classification\\Brain Tumor Classification.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hossa\\OneDrive\\Desktop\\Brain-Tumor-Classification\\Brain-Tumor-Classification\\Brain Tumor Classification\\Brain Tumor Classification.csproj",
+        "projectUniqueName": "C:\\Users\\ehabr\\source\\repos\\Brain Tumor Classification\\Brain Tumor Classification\\Brain Tumor Classification.csproj",
         "projectName": "Brain Tumor Classification",
-        "projectPath": "C:\\Users\\hossa\\OneDrive\\Desktop\\Brain-Tumor-Classification\\Brain-Tumor-Classification\\Brain Tumor Classification\\Brain Tumor Classification.csproj",
-        "packagesPath": "C:\\Users\\hossa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\hossa\\OneDrive\\Desktop\\Brain-Tumor-Classification\\Brain-Tumor-Classification\\Brain Tumor Classification\\obj\\",
+        "projectPath": "C:\\Users\\ehabr\\source\\repos\\Brain Tumor Classification\\Brain Tumor Classification\\Brain Tumor Classification.csproj",
+        "packagesPath": "C:\\Users\\ehabr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ehabr\\source\\repos\\Brain Tumor Classification\\Brain Tumor Classification\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\hossa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ehabr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -50,6 +51,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[8.0.13, )"

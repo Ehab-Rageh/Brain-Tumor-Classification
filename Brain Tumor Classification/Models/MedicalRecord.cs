@@ -1,8 +1,5 @@
 ﻿namespace Brain_Tumor_Classification.Models;
 
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 public class MedicalRecord
 {
     [Key]  

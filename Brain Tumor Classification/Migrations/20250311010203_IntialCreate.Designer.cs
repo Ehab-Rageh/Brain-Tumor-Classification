@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Brain_Tumor_Classification.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250310043529_add-name-field-to-appUser")]
-    partial class addnamefieldtoappUser
+    [Migration("20250311010203_IntialCreate")]
+    partial class IntialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,7 +49,8 @@ namespace Brain_Tumor_Classification.Migrations
 
                     b.Property<string>("Gender")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -59,7 +60,8 @@ namespace Brain_Tumor_Classification.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -109,20 +111,17 @@ namespace Brain_Tumor_Classification.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("MRIImage")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("MedicalRecords");
                 });
@@ -143,7 +142,8 @@ namespace Brain_Tumor_Classification.Migrations
 
                     b.Property<string>("TumorType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -288,13 +288,9 @@ namespace Brain_Tumor_Classification.Migrations
 
             modelBuilder.Entity("Brain_Tumor_Classification.Models.MedicalRecord", b =>
                 {
-                    b.HasOne("Brain_Tumor_Classification.Models.ApplicationUser", "User")
+                    b.HasOne("Brain_Tumor_Classification.Models.ApplicationUser", null)
                         .WithMany("MedicalRecords")
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Brain_Tumor_Classification.Models.Tumor", b =>

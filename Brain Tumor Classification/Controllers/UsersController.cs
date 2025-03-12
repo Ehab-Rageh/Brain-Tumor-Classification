@@ -4,46 +4,61 @@
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UsersController(ApplicationDbContext context)
+        public UsersController(IUserService userService, IMapper mapper)
         {
-            _context = context;
+            _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var users = _context.Users.Select(s => new
-            {
-                Id = s.Id,
-                Name = s.Name,
-                Username = s.UserName,
-                Email = s.Email,
-                Gender = s.Gender,
-                Birthdate = s.BirthDate,
-            }).ToList();
+            var users = await _userService.GetAllAsync();
 
             return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById([FromRoute] string id)
+        public async Task<IActionResult> GetById([FromRoute] string id)
         {
-            var user = _context.Users.Find(id);
+            var user = await _userService.GetByIdAsync(id);
 
             if (user is null)
                 return NotFound($"There is no user with Id: {id}");
 
-            return Ok(new
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Username = user.UserName,
-                Email = user.Email,
-                Gender = user.Gender,
-                Birthdate = user.BirthDate,
-            });
+            return Ok(_mapper.Map<UserDetailsDto>(user));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update([FromRoute] string id, [FromBody] UpdateUserDto dto)
+        {
+            var user = await _userService.GetByIdAsync(id);
+            if (user is null)
+                return NotFound($"There is no user with Id: {id}");
+
+            user.Name = dto.Name;
+            user.BirthDate = dto.BirthDate;
+            user.UserName = dto.UserName;
+            user.Gender = dto.Gender;
+
+            await _userService.UpdateAsync(user);
+
+            return Ok(_mapper.Map<UpdateUserDto>(user));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] string id)
+        {
+            var user = await _userService.GetByIdAsync(id);
+            if (user is null)
+                return NotFound($"There is no user with Id: {id}");
+
+            await _userService.Delete(user);
+
+            return Ok(_mapper.Map<RegisterDto>(user));
         }
     }
 }

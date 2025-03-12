@@ -1,12 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.ComponentModel.DataAnnotations;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
-[Route("api/auth")]
+﻿[Route("api/auth")]
 [ApiController]
 public class AuthController : ControllerBase
 {
@@ -22,20 +14,20 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody] RegisterModel model)
+    public async Task<IActionResult> Register([FromBody] RegisterDto dto)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
         var user = new ApplicationUser
         {
-            UserName = model.Email,
-            Email = model.Email,
-            Name = model.Name, 
-            Gender = model.Gender,
-            BirthDate = model.BirthDate
+            UserName = dto.Email,
+            Email = dto.Email,
+            Name = dto.Name, 
+            Gender = dto.Gender,
+            BirthDate = dto.BirthDate
         };
 
-        var result = await _userManager.CreateAsync(user, model.Password);
+        var result = await _userManager.CreateAsync(user, dto.Password);
 
         if (!result.Succeeded)
             return BadRequest(result.Errors);
@@ -44,12 +36,12 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginModel model)
+    public async Task<IActionResult> Login([FromBody] LoginDto dto)
     {
-        var user = await _userManager.FindByEmailAsync(model.Email);
+        var user = await _userManager.FindByEmailAsync(dto.Email);
         if (user == null) return Unauthorized(new { message = "Invalid credentials" });
 
-        var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
+        var result = await _signInManager.CheckPasswordSignInAsync(user, dto.Password, false);
         if (!result.Succeeded) return Unauthorized(new { message = "Invalid credentials" });
 
         var token = GenerateJwtToken(user);
@@ -78,31 +70,4 @@ public class AuthController : ControllerBase
 
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
-}
-
-public class RegisterModel
-{
-    [Required]
-    public string Name { get; set; }
-
-    [Required]
-    public string Email { get; set; }
-
-    [Required]
-    [DataType(DataType.Password)]
-    public string Password { get; set; }
-
-    [Required]
-    public string Gender { get; set; } 
-
-    [Required]
-    [DataType(DataType.Date)]
-    public DateTime BirthDate { get; set; }
-}
-
-
-public class LoginModel
-{
-    public string Email { get; set; }
-    public string Password { get; set; }
 }
